@@ -14,6 +14,12 @@ int main(int argc, char **argv) {
   struct matrix * edges;
   struct matrix * transform;
 
+  //temp?
+  color c;
+  c.red = 0;
+  c.green = 0;
+  c.blue = 255;
+
   edges = new_matrix(4, 4);
   transform = new_matrix(4, 4);
 
@@ -23,9 +29,21 @@ int main(int argc, char **argv) {
     parse_file( "stdin", transform, edges, s );
 
   //temporary test cases (until parser works)
-  
+  add_edge(edges, 100, 100, 0, 200, 200, 0);
+  add_edge(edges, 100, 100, 0, 100, 400, 0);
+  printf("works\n");
 
-  
+  draw_lines(edges, s, c);
+  display(s);
+
+  transform = make_translate(10, 0, 0);
+  matrix_mult(edges, transform);
+
+  draw_lines(edges, s, c);
+  display(s);
+
+
+
   free_matrix( edges );
   free_matrix( transform );
 }
