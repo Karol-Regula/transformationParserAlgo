@@ -22,7 +22,10 @@ int main(int argc, char **argv) {
   else
     parse_file( "stdin", transform, edges, s );
 
+  //temporary test cases (until parser works)
+  
 
+  
   free_matrix( edges );
   free_matrix( transform );
 }
