@@ -23,10 +23,10 @@ int main(int argc, char **argv) {
   edges = new_matrix(4, 4);
   transform = new_matrix(4, 4);
 
-  if ( argc == 2 )
-    parse_file( argv[1], transform, edges, s );
-  else
-    parse_file( "stdin", transform, edges, s );
+  //if ( argc == 2 )
+    //parse_file( argv[1], transform, edges, s );//uncomment
+  //else
+    //parse_file( "stdin", transform, edges, s );//uncomment
 
   //temporary test cases (until parser works)
   add_edge(edges, 100, 100, 0, 200, 200, 0);
@@ -36,9 +36,19 @@ int main(int argc, char **argv) {
   draw_lines(edges, s, c);
   display(s);
 
-  transform = make_translate(10, 0, 0);
-  matrix_mult(edges, transform);
+  //translation------------------
+  transform = make_translate(100, 0, 0);
+  //matrix_mult(transform, edges);
 
+  clear_screen(s);
+  draw_lines(edges, s, c);
+  //display(s);
+
+  //scaling----------------------
+  transform = make_scale(2, 0.1, 1);
+  matrix_mult(transform, edges);
+
+  clear_screen(s);
   draw_lines(edges, s, c);
   display(s);
 

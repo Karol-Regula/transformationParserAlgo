@@ -36,7 +36,7 @@ struct matrix * make_scale(double x, double y, double z) {
   transform->m[0][0] = x;
   transform->m[1][1] = y;
   transform->m[2][2] = z;
-  return NULL;
+  return transform;
 }
 
 /*======== struct matrix * make_rotX() ==========
