@@ -52,6 +52,13 @@ int main(int argc, char **argv) {
   draw_lines(edges, s, c);
   display(s);
 
+  //rotation----------------------
+  transform = make_rotZ(1);
+  matrix_mult(transform, edges);
+
+  clear_screen(s);
+  draw_lines(edges, s, c);
+  display(s);
 
 
   free_matrix( edges );
