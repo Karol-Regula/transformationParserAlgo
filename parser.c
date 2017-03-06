@@ -63,6 +63,8 @@ void parse_file ( char * filename,
   char line[256];
   clear_screen(s);
 
+  struct matrix * temp;
+
   if ( strcmp(filename, "stdin") == 0 )
     f = stdin;
   else
@@ -71,17 +73,76 @@ void parse_file ( char * filename,
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
     printf(":%s:\n",line);
-    //insert all the ifs here
     if (! strcmp("line", line)){
-
+      //note still get seg faults on not enough arguments in line
+      fgets(line, 255, f);
+      printf("running line strtok on: %s\n", line);
+      char * p;
+      int x0, y0, z0, x1, y1, z1;
+      p = strtok (line, " ");
+      x0 = atoi(p);
+      p = strtok (NULL, " ");
+      y0 = atoi(p);
+      p = strtok (NULL, " ");
+      z0 = atoi(p);
+      p = strtok (NULL, " ");
+      x1 = atoi(p);
+      p = strtok (NULL, " ");
+      y1 = atoi(p);
+      p = strtok (NULL, " ");
+      z1 = atoi(p);
+      add_edge(edges, x0, y0, z0, x1, y1, z1);
     }else if (! strcmp("ident", line)){
-
+      ident(transform);
     }else if (! strcmp("scale", line)){
-
+      fgets(line, 255, f);
+      printf("running scale strtok on: %s\n", line);
+      char * p;
+      int sx, sy, sz;
+      p = strtok (line, " ");
+      sx = atoi(p);
+      p = strtok (NULL, " ");
+      sy = atoi(p);
+      p = strtok (NULL, " ");
+      sz = atoi(p);
+      temp = make_scale(sx, sy, sz);
+      matrix_mult(temp, transform);
     }else if (! strcmp("translate", line)){
-
+      fgets(line, 255, f);
+      printf("running translate strtok on: %s\n", line);
+      char * p;
+      int tx, ty, tz;
+      p = strtok (line, " ");
+      tx = atoi(p);
+      p = strtok (NULL, " ");
+      ty = atoi(p);
+      p = strtok (NULL, " ");
+      tz = atoi(p);
+      temp = make_translate(tx, ty, tz);
+      matrix_mult(temp, transform);
     }else if (! strcmp("rotate", line)){
-
+      fgets(line, 255, f);
+      printf("running rotatetranslate strtok on: %s\n", line);
+      char * p;
+      int theta;
+      char axis;
+      p = strtok (line, " ");
+      theta = atoi(p);
+      p = strtok (NULL, " ");
+      axis = *p;
+      if (axis == 'x')
+	make_rotX(theta);
+      else if (axis == 'y')
+	make_rotY(theta);
+      else if (axis == 'z')
+	make_rotZ(theta);
+      else{
+	printf("unknown axis\n");
+	break;
+      }
+      //convert theta to radians
+      
+      matrix_mult(temp, transform);
     }else if (! strcmp("apply", line)){
 
     }else if (! strcmp("display", line)){

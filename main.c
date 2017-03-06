@@ -9,6 +9,7 @@
 #include "parser.h"
 
 int main(int argc, char **argv) {
+  //note: script uploaded, can use for testing
 
   screen s;
   struct matrix * edges;
