@@ -1,0 +1,6 @@
+line
+100 100 100 200 200 200
+ident
+display
+save
+quit

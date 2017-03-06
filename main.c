@@ -23,10 +23,11 @@ int main(int argc, char **argv) {
   edges = new_matrix(4, 4);
   transform = new_matrix(4, 4);
 
-  //if ( argc == 2 )
-    //parse_file( argv[1], transform, edges, s );//uncomment
-  //else
-    //parse_file( "stdin", transform, edges, s );//uncomment
+  if ( argc == 2 )
+    parse_file( argv[1], transform, edges, s );
+  else
+    parse_file( "stdin", transform, edges, s );
+
 
   //temporary test cases (until parser works)
   //cube
@@ -44,8 +45,6 @@ int main(int argc, char **argv) {
   add_edge(edges, 100, 200, 0, 100, 200, 100);
   add_edge(edges, 200, 100, 0, 200, 100, 100);
   add_edge(edges, 200, 200, 0, 200, 200, 100);
-
-  printf("works\n");
 
   draw_lines(edges, s, c);
   display(s);
