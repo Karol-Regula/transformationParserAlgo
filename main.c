@@ -29,8 +29,22 @@ int main(int argc, char **argv) {
     //parse_file( "stdin", transform, edges, s );//uncomment
 
   //temporary test cases (until parser works)
-  add_edge(edges, 100, 100, 0, 200, 200, 0);
-  add_edge(edges, 100, 100, 0, 100, 400, 0);
+  //cube
+  add_edge(edges, 100, 100, 0, 200, 100, 0);
+  add_edge(edges, 100, 100, 0, 100, 200, 0);
+  add_edge(edges, 200, 200, 0, 200, 100, 0);
+  add_edge(edges, 200, 200, 0, 100, 200, 0);
+
+  add_edge(edges, 100, 100, 100, 200, 100, 100);
+  add_edge(edges, 100, 100, 100, 100, 200, 100);
+  add_edge(edges, 200, 200, 100, 200, 100, 100);
+  add_edge(edges, 200, 200, 100, 100, 200, 100);
+
+  add_edge(edges, 100, 100, 0, 100, 100, 100);
+  add_edge(edges, 100, 200, 0, 100, 200, 100);
+  add_edge(edges, 200, 100, 0, 200, 100, 100);
+  add_edge(edges, 200, 200, 0, 200, 200, 100);
+
   printf("works\n");
 
   draw_lines(edges, s, c);
@@ -45,15 +59,29 @@ int main(int argc, char **argv) {
   //display(s);
 
   //scaling----------------------
-  transform = make_scale(2, 0.1, 1);
-  matrix_mult(transform, edges);
+  //transform = make_scale(2, 0.1, 1);
+  //matrix_mult(transform, edges);
 
   clear_screen(s);
   draw_lines(edges, s, c);
   display(s);
 
   //rotation----------------------
-  transform = make_rotZ(1);
+  transform = make_rotZ(0.3);
+  matrix_mult(transform, edges);
+
+  clear_screen(s);
+  draw_lines(edges, s, c);
+  display(s);
+
+  transform = make_rotY(0.3);
+  matrix_mult(transform, edges);
+
+  clear_screen(s);
+  draw_lines(edges, s, c);
+  display(s);
+
+  transform = make_rotX(0.3);
   matrix_mult(transform, edges);
 
   clear_screen(s);
