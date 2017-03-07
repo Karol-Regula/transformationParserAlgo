@@ -128,7 +128,7 @@ void parse_file ( char * filename,
       matrix_mult(temp, transform);
     }else if (! strcmp("rotate", line)){
       fgets(line, 255, f);
-      printf("running rotate strtok on: %s\n", line);
+      printf("running rotate strtok on: %s", line);
       char * p;
       double theta;
       char axis;
@@ -137,7 +137,7 @@ void parse_file ( char * filename,
       p = strtok (NULL, " ");
       theta = atoi(p);
       theta *= (M_PI / 180.0);//converting theta to raidians
-      printf("theta: %f", theta);
+      printf("theta: %f\n\n", theta);
       if (axis == 'x')
 	temp = make_rotX(theta);
       else if (axis == 'y')
@@ -156,8 +156,11 @@ void parse_file ( char * filename,
       draw_lines(edges, s, c);
       display(s);
     }else if (! strcmp("save", line)){
-      printf("Saving not yet implemented.\n");
+      fgets(line, 255, f);
+      printf("saving to file %s\n", line);
+      save_extension(s, line);
     }else if (! strcmp("quit", line)){
+      printf("exiting...\n\n");
       free_matrix( edges );
       free_matrix( transform );
       exit(0);
