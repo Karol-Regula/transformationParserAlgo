@@ -32,6 +32,7 @@ int main(int argc, char **argv) {
 
   //temporary test cases (until parser works)
   //cube
+  /*
   add_edge(edges, 100, 100, 0, 200, 100, 0);
   add_edge(edges, 100, 100, 0, 100, 200, 0);
   add_edge(edges, 200, 200, 0, 200, 100, 0);
@@ -84,11 +85,12 @@ int main(int argc, char **argv) {
   transform = make_rotX(0.3);
   matrix_mult(transform, edges);
 
-  clear_screen(s);
+  clear_screen(s); // make sure this is called before drawing and displaying
   draw_lines(edges, s, c);
   display(s);
 
 
   free_matrix( edges );
   free_matrix( transform );
+  */
 }

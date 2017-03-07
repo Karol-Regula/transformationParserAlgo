@@ -65,6 +65,12 @@ void parse_file ( char * filename,
 
   struct matrix * temp;
 
+  color c;
+  c.red = 0;
+  c.green = 0;
+  c.blue = 255;
+
+
   if ( strcmp(filename, "stdin") == 0 )
     f = stdin;
   else
@@ -107,7 +113,7 @@ void parse_file ( char * filename,
       sz = atoi(p);
       temp = make_scale(sx, sy, sz);
       matrix_mult(temp, transform);
-    }else if (! strcmp("translate", line)){
+    }else if (! strcmp("move", line)){
       fgets(line, 255, f);
       printf("running translate strtok on: %s\n", line);
       char * p;
@@ -122,35 +128,39 @@ void parse_file ( char * filename,
       matrix_mult(temp, transform);
     }else if (! strcmp("rotate", line)){
       fgets(line, 255, f);
-      printf("running rotatetranslate strtok on: %s\n", line);
+      printf("running rotate strtok on: %s\n", line);
       char * p;
-      int theta;
+      double theta;
       char axis;
       p = strtok (line, " ");
-      theta = atoi(p);
+      axis = p[0];
       p = strtok (NULL, " ");
-      axis = *p;
+      theta = atoi(p);
+      theta *= (M_PI / 180.0);//converting theta to raidians
+      printf("theta: %f", theta);
       if (axis == 'x')
-	make_rotX(theta);
+	temp = make_rotX(theta);
       else if (axis == 'y')
-	make_rotY(theta);
+	temp = make_rotY(theta);
       else if (axis == 'z')
-	make_rotZ(theta);
+	temp = make_rotZ(theta);
       else{
 	printf("unknown axis\n");
 	break;
       }
-      //convert theta to radians
-      
       matrix_mult(temp, transform);
     }else if (! strcmp("apply", line)){
-
+      matrix_mult(transform, edges);
     }else if (! strcmp("display", line)){
-
+      clear_screen(s);
+      draw_lines(edges, s, c);
+      display(s);
     }else if (! strcmp("save", line)){
-
+      printf("Saving not yet implemented.\n");
     }else if (! strcmp("quit", line)){
-
+      free_matrix( edges );
+      free_matrix( transform );
+      exit(0);
     }else{
       printf("encountered unknown command\n");
     }
