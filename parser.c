@@ -66,8 +66,8 @@ void parse_file ( char * filename,
   struct matrix * temp;
 
   color c;
-  c.red = 0;
-  c.green = 0;
+  c.red = 102;
+  c.green = 255;
   c.blue = 255;
 
 
@@ -104,26 +104,26 @@ void parse_file ( char * filename,
       fgets(line, 255, f);
       printf("running scale strtok on: %s\n", line);
       char * p;
-      int sx, sy, sz;
+      double sx, sy, sz;
       p = strtok (line, " ");
-      sx = atoi(p);
+      sx = atof(p);
       p = strtok (NULL, " ");
-      sy = atoi(p);
+      sy = atof(p);
       p = strtok (NULL, " ");
-      sz = atoi(p);
+      sz = atof(p);
       temp = make_scale(sx, sy, sz);
       matrix_mult(temp, transform);
     }else if (! strcmp("move", line)){
       fgets(line, 255, f);
       printf("running translate strtok on: %s\n", line);
       char * p;
-      int tx, ty, tz;
+      double tx, ty, tz;
       p = strtok (line, " ");
-      tx = atoi(p);
+      tx = atof(p);
       p = strtok (NULL, " ");
-      ty = atoi(p);
+      ty = atof(p);
       p = strtok (NULL, " ");
-      tz = atoi(p);
+      tz = atof(p);
       temp = make_translate(tx, ty, tz);
       matrix_mult(temp, transform);
     }else if (! strcmp("rotate", line)){
@@ -135,7 +135,7 @@ void parse_file ( char * filename,
       p = strtok (line, " ");
       axis = p[0];
       p = strtok (NULL, " ");
-      theta = atoi(p);
+      theta = atof(p);
       theta *= (M_PI / 180.0);//converting theta to raidians
       printf("theta: %f\n\n", theta);
       if (axis == 'x')
